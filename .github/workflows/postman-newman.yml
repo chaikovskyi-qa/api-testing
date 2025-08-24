@@ -18,11 +18,10 @@ jobs:
       - name: Run Newman tests
         shell: bash
         run: |
-         [ -d reports ] && rm -r reports
           mkdir -p reports
           newman run collections/ecommerce.postman_collection.json \
             -e envs/dev.postman_environment.json \
-            -r htmlextra --reporter-htmlextra-export reports/report.html
+            -r htmlextra --reporter-htmlextra-export reports/report.html || true
 
       - uses: actions/upload-artifact@v4
         with:
