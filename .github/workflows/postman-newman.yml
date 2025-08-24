@@ -18,7 +18,7 @@ jobs:
       - name: Run Newman tests
         shell: bash
         run: |
-         rm -rf reports
+         [ -d reports ] && rm -r reports
           mkdir -p reports
           newman run collections/ecommerce.postman_collection.json \
             -e envs/dev.postman_environment.json \
