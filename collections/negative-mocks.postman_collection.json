@@ -1,0 +1,492 @@
+{
+	"info": {
+		"_postman_id": "2adfaeb7-615d-4c46-af9c-b2994ef6d4b2",
+		"name": "Negative Mocks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48087441",
+		"_collection_link": "https://uacuk09-1992172.postman.co/workspace/Mock-Server-Testing~856b6cd4-dcd4-4798-baf7-a791ff91898d/collection/48087441-2adfaeb7-615d-4c46-af9c-b2994ef6d4b2?action=share&source=collection_link&creator=48087441"
+	},
+	"item": [
+		{
+			"name": "/mock/400",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://example.com/mock/400",
+					"protocol": "https",
+					"host": [
+						"example",
+						"com"
+					],
+					"path": [
+						"mock",
+						"400"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/mock/400 Bad Requast",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": 400,\r\n  \"error\": \"Bad Request\",\r\n  \"message\": \"Invalid input data. Please check your request parameters.\",\r\n  \"path\": \"/mock/400\",\r\n  \"timestamp\": \"2025-09-12T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://example.com/mock/400",
+							"protocol": "https",
+							"host": [
+								"example",
+								"com"
+							],
+							"path": [
+								"mock",
+								"400"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/mock/401",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://example.com/mock/401",
+					"protocol": "https",
+					"host": [
+						"example",
+						"com"
+					],
+					"path": [
+						"mock",
+						"401"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "/mock/401 Unauthorized",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"error\": \"Unauthorized\",\r\n  \"message\": \"Authentication credentials were missing or invalid.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://example.com/mock/401",
+							"protocol": "https",
+							"host": [
+								"example",
+								"com"
+							],
+							"path": [
+								"mock",
+								"401"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "/mock/401/test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получен 401 при отсутствии или неверных кредах [@severity=critical]\", () => {\r",
+							"  pm.response.to.have.status(401);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mock_url}}/mock/401",
+					"host": [
+						"{{mock_url}}"
+					],
+					"path": [
+						"mock",
+						"401"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mock/403",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "mock/403",
+					"host": [
+						"mock"
+					],
+					"path": [
+						"403"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "mock/403 Forbidden",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"error\": \"Forbidden\",\r\n  \"message\": \"You do not have permission to access this resource.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://example.com/mock/403",
+							"protocol": "https",
+							"host": [
+								"example",
+								"com"
+							],
+							"path": [
+								"mock",
+								"403"
+							]
+						}
+					},
+					"status": "Forbidden",
+					"code": 403,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "mock/403/test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получен 403 при недостаточных правах (роль) [@severity=normal]\", () => {\r",
+							"  pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{mock_url}}/mock/403",
+					"host": [
+						"{{mock_url}}"
+					],
+					"path": [
+						"mock",
+						"403"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mock/404",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://example.com/mock/404",
+					"protocol": "https",
+					"host": [
+						"example",
+						"com"
+					],
+					"path": [
+						"mock",
+						"404"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "mock/404 Not Found",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": 404,\r\n  \"error\": \"Not Found\",\r\n  \"path\": \"/mock/404\",\r\n  \"timestamp\": \"2025-09-12T12:00:00Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://example.com/mock/404",
+							"protocol": "https",
+							"host": [
+								"example",
+								"com"
+							],
+							"path": [
+								"mock",
+								"404"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "mock/404/test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получен 404 при обращении к несуществующему ресурсу [@severity=minor]\", () => {\r",
+							"  pm.response.to.have.status(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mock_url}}/mock/404",
+					"host": [
+						"{{mock_url}}"
+					],
+					"path": [
+						"mock",
+						"404"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mock/409",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"status\": 409,\r\n  \"error\": \"Conflict\",\r\n  \"message\": \"A resource with the same identifier already exists.\",\r\n  \"path\": \"/mock/409\",\r\n  \"timestamp\": \"2025-09-12T12:00:00Z\"",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://example.com/mock/409",
+					"protocol": "https",
+					"host": [
+						"example",
+						"com"
+					],
+					"path": [
+						"mock",
+						"409"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "mock/409 Conflict",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": 409,\r\n  \"error\": \"Conflict\",\r\n  \"message\": \"A resource with the same identifier already exists.\",\r\n  \"path\": \"/mock/409\",\r\n  \"timestamp\": \"2025-09-12T12:00:00Z\"",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://example.com/mock/409",
+							"protocol": "https",
+							"host": [
+								"example",
+								"com"
+							],
+							"path": [
+								"mock",
+								"409"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "mock/409/test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получен 409 при конфликте данных (дубликат/версия) [@severity=major]\", () => {\r",
+							"  pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mock_url}}/mock/409",
+					"host": [
+						"{{mock_url}}"
+					],
+					"path": [
+						"mock",
+						"409"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "mock/400/test",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Получен 400 при некорректном запросе [@severity=normal]\", () => {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{mock_url}}/mock/400",
+					"host": [
+						"{{mock_url}}"
+					],
+					"path": [
+						"mock",
+						"400"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
