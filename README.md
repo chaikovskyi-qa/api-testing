@@ -1,62 +1,36 @@
 # API Testing with Postman + GitHub Actions
 
-This project demonstrates API testing using **Postman**, **Newman**, and **GitHub Actions CI**.  
-It includes both real API flows and negative testing with Postman Mock Server.
+This project demonstrates basic API testing using **Postman**, **Newman**, and **GitHub Actions CI**.  
+It includes positive and negative test scenarios and simple automation in CI.  
 
 ---
 
-## 📌 Project Structure
-
-- **collections/**  
-  Postman collections (`ecommerce`, `negative-mocks`, `user-api`).
-
-- **envs/**  
-  Postman environments (`dev`, `negative-mocks`, `user-api`).
-
-- **flows/**  
-  Postman Flows (visual testing scenarios).  
-  Example: [user-create-check](flows/user-create-check/flow.png).
-
-- **.github/workflows/**  
-  CI configuration for running collections via Newman in GitHub Actions.
+## Project Structure
+- **collections/** → Postman collections (main API, negative scenarios, user API)  
+- **envs/** → Postman environments (dev, negative, user)  
+- **flows/** → Postman Flows (visual testing scenarios), e.g. user-create-check  
+- **.github/workflows/** → GitHub Actions configuration for running Newman tests  
 
 ---
 
-## 🚀 What is implemented
-
-- **Postman Flows**  
-  A flow that creates a user and then retrieves it by ID.  
-  ✅ Initially passed successfully (see screenshot in [flows/user-create-check/flow.png](flows/user-create-check/flow.png)).
-
-- **Ecommerce Collection (reqres.in API)**  
-  Tests for a public API.  
-  ⚠️ Sometimes fails with `401 Unauthorized` because the external API changes its requirements.  
-  This was intentionally kept to demonstrate CI catching unstable API behavior.
-
-- **Negative Mocks Collection (400–409)**  
-  A set of negative scenarios using Postman Mock Server:  
-  - `400 Bad Request`  
-  - `401 Unauthorized`  
-  - `403 Forbidden`  
-  - `404 Not Found`  
-  - `409 Conflict`  
-  ✅ These tests always pass in CI, since responses are fully controlled.
+## What is implemented
+- Postman Flows – create a user and check by ID  
+- API Collection – basic requests (GET, POST)  
+- Negative tests – 400, 401, 403, 404, 409 with Postman Mock Server  
 
 ---
 
-## ⚙️ CI (GitHub Actions)
-
-- The workflow runs **two jobs**:
-  1. `run-newman` → runs Ecommerce collection with an HTML report (`htmlextra`) as an artifact.  
-  2. `postman` → runs both **Ecommerce** and **Negative Mocks** collections in parallel.  
-
-- Reports are available in the **Actions** tab.
+## CI (GitHub Actions)
+- Runs collections automatically with **Newman**  
+- Generates HTML reports using **htmlextra**  
+- Reports available in the *Actions* tab  
 
 ---
 
-## ✅ How to run locally
-
-Install [Newman](https://github.com/postmanlabs/newman):  
+## How to run locally
+1. Install [Newman](https://github.com/postmanlabs/newman):  
+   ```bash
+   npm install -g newman newman-reporter-htmlextra  
 ```bash
 npm install -g newman newman-reporter-htmlextra
 
